@@ -1,0 +1,58 @@
+TARGETNAME=UDEMbimClientSample
+TARGETTYPE=DRIVER
+TARGET_DESTINATION = retail
+
+KMDF_VERSION_MAJOR=1
+
+MSC_WARNING_LEVEL=/W4 /WX
+MUI_VERIFY_NO_LOC_RESOURCE = 1
+#
+# Make sure to not lose the C_DEFINES from project.mk.inc file
+#
+# Careful: must specify RPC_NO_WINDOWS_H, or rpc.h will need winnt.h that is not going to work in kernel
+C_DEFINES = $(C_DEFINES) -DRPC_NO_WINDOWS_H
+
+#TODO: figure out how to get this working for C++, or remove
+#PRECOMPILED_INCLUDE = pch.h
+
+TARGETLIBS=$(TARGETLIBS) \
+           $(DDK_LIB_PATH)\wpprecorder.lib \
+           $(DDK_LIB_PATH)\ntstrsafe.lib \
+           $(DDK_LIB_PATH)\usbd.lib \
+           $(DDK_LIB_PATH)\ude\1.0\udecxstub.lib \
+
+INCLUDES=$(DRIVERS_INC_PATH); \
+         $(MINWIN_PRIV_SDK_INC_PATH); \
+         $(MINWIN_PRIV_SDK_INC_PATH)\ntos; \
+         $(MINWIN_PRIV_SDK_INC_PATH)\ddk; \
+         $(INTERNAL_KMDF_INC_PATH)\$(KMDF_VER_PATH_LATEST); \
+         $(IFSKIT_INC_PATH); \
+         $(DDK_INC_PATH); \
+         $(DDK_INC_PATH)\ucx\1.1; \
+         $(DDK_INC_PATH)\ude\1.0; \
+         $(SPB_INC_PATH)\$(SPB_VER_PATH); \
+		 $(PUBLIC_INTERNAL_PATH)\net\inc; \
+		 $(PUBLIC_INTERNAL_PATH)\net\inc\wwan; \
+		 
+SOURCES = \
+    controller.cpp             \
+    driver.cpp             \
+    io.cpp \
+    usbdevice.cpp \
+    misc.cpp \
+    WwanVirtualAdapter.cpp \
+    UDEMbimClient.rc \
+
+RUN_WPP = $(SOURCES)                             \
+          -km                                    \
+          -DENABLE_WPP_RECORDER=1                \
+          -DWPP_PUBLIC_TMC                       \
+          -scan:tracing.h                        \
+          -func:TraceEvents(LEVEL,FLAGS,MSG,...) \
+          -public:TraceEvents                    \
+          -public:LogInfo                        \
+          -public:LogError                       \
+          -public:LogVerbose                     \
+          -public:LogWarning                     \
+          -public:LogFatal
+
