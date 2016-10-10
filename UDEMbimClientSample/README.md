@@ -19,4 +19,4 @@ Trace.h | Contains trace-related definitions
 udembimdescriptors.h | Contains descriptors for composite USB device
 
 ### License
-UDE Mbim Client Sample is licensed under the [MIT License](https://github.com/Microsoft/UDE/UDEMbimClientSample/License.txt).
+UDE Mbim Client Sample is licensed under the [MIT License](https://github.com/Microsoft/UDE/blob/master/UDEMbimClientSample/License.txt).
