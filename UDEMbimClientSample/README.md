@@ -1,6 +1,6 @@
 # UDE Mbim Client Sample
 
-This sample demonstrates how to write emulated composite USB device with Mbim function by [UDE] (https://msdn.microsoft.com/en-us/library/windows/hardware/mt595939%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396). With this UDE client driver, PnP will load wmbclass and wmbclass can complete most of initialization steps and get response of MBIM_BASIC_CID_DEVICE_CAPS. 
+This sample demonstrates how to write emulated composite USB device with Mbim function by [UDE](https://msdn.microsoft.com/en-us/library/windows/hardware/mt595939%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396). With this UDE client driver, PnP will load wmbclass and wmbclass can complete most of initialization steps and get response of MBIM_BASIC_CID_DEVICE_CAPS. 
 
 Code Tour
 ---------
